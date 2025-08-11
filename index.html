@@ -1,90 +1,996 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Aluri Indu Priya - Portfolio</title>
-  <link rel="stylesheet" href="style.css"/>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aluri Indu Priya - Software Developer & Tech Enthusiast</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 0;
+            transition: all 0.3s ease;
+        }
+
+        nav.scrolled {
+            background: rgba(255, 255, 255, 0.98);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: #667eea;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><defs><radialGradient id="a" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="rgba(255,255,255,0.1 )"/><stop offset="100%" stop-color="rgba(255,255,255,0)"/></radialGradient></defs><circle cx="200" cy="200" r="100" fill="url(%23a)"/><circle cx="800" cy="300" r="150" fill="url(%23a)"/><circle cx="400" cy="700" r="120" fill="url(%23a)"/></svg>');
+            animation: float 20s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-text h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+            opacity: 0;
+            animation: slideUp 1s ease 0.5s forwards;
+        }
+
+        .hero-text p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            opacity: 0;
+            animation: slideUp 1s ease 0.7s forwards;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            opacity: 0;
+            animation: slideUp 1s ease 0.9s forwards;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .btn-primary:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: #667eea;
+            border: 2px solid white;
+        }
+
+        .btn-secondary:hover {
+            background: transparent;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .hero-image {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            animation: slideUp 1s ease 1.1s forwards;
+        }
+
+        .profile-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transform: rotateY(15deg) rotateX(5deg);
+            transition: transform 0.3s ease;
+        }
+
+        .profile-card:hover {
+            transform: rotateY(0deg) rotateX(0deg);
+        }
+
+        .profile-img {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #ff6b6b, #4ecdc4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: white;
+            margin: 0 auto 1rem;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Sections */
+        .section {
+            padding: 5rem 0;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding-left: 2rem;
+            padding-right: 2rem;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* About Section */
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            margin-top: 2rem;
+        }
+
+        .about-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .about-card h3 {
+            color: #667eea;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .education-item {
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        .education-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+
+        .education-title {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+
+        .education-institution {
+            color: #667eea;
+            font-weight: 500;
+        }
+
+        .education-details {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        /* Skills Section */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .skill-category {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .skill-category:hover {
+            transform: translateY(-5px);
+        }
+
+        .skill-category h3 {
+            color: #667eea;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .skill-tag {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        /* Certifications */
+        .certifications {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            margin-top: 2rem;
+        }
+
+        .certifications h3 {
+            color: #667eea;
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+        }
+
+        .cert-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1rem;
+        }
+
+        .cert-item {
+            display: flex;
+            align-items: center;
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: 10px;
+            border-left: 4px solid #667eea;
+        }
+
+        .cert-item::before {
+            content: '🏆';
+            margin-right: 1rem;
+            font-size: 1.2rem;
+        }
+
+        /* Experience Section */
+        .experience-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+            border-left: 4px solid #667eea;
+        }
+
+        .experience-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+
+        .experience-title {
+            font-size: 1.5rem;
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+
+        .experience-company {
+            color: #667eea;
+            font-weight: 600;
+        }
+
+        .experience-date {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+
+        .experience-description {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .experience-description ul {
+            margin-top: 1rem;
+            padding-left: 1.5rem;
+        }
+
+        .experience-description li {
+            margin-bottom: 0.5rem;
+        }
+
+        /* Projects Section */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .project-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .project-header {
+            height: 200px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3rem;
+        }
+
+        .project-content {
+            padding: 2rem;
+        }
+
+        .project-title {
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+
+        .project-year {
+            color: #667eea;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .project-description {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .project-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .tech-tag {
+            background: #f8f9fa;
+            color: #667eea;
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            border: 1px solid #e9ecef;
+        }
+
+        /* Contact Section */
+        .contact {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-align: center;
+            padding: 5rem 2rem;
+        }
+
+        .contact-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .contact-link {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: white;
+            text-decoration: none;
+            padding: 1rem 2rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50px;
+            transition: all 0.3s ease;
+        }
+
+        .contact-link:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        /* Hobbies */
+        .hobbies {
+            margin-top: 3rem;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 2rem;
+            border-radius: 15px;
+        }
+
+        .hobbies h3 {
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .hobby-tags {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .hobby-tag {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+                gap: 2rem;
+            }
+
+            .hero-text h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .experience-header {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .contact-links {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .cert-list {
+                grid-template-columns: 1fr;
+            }
+
+            .hobby-tags {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+
+        /* Scroll animations */
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .animate-on-scroll.animated {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
 </head>
 <body>
-  <header>
-    <div class="container">
-      <div class="profile">
-        <img src="your-profile.jpg" alt="Indu Priya" />
-        <h1>Aluri Indu Priya</h1>
-        <p>Undergraduate, VVIT</p>
-        <div class="contact">
-          <p>📞 +91 9542836687</p>
-          <p>📧 aluriindu123@gmail.com</p>
-          <p>📍 21-08-13/1, Gajulapalem, Ponnur</p>
-          <p>🔗 <a href="https://linkedin.com/in/aluri-indu-priya-503a27269" target="_blank">LinkedIn Profile</a></p>
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="nav-container">
+            <div class="logo">Portfolio</div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#experience">Experience</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
         </div>
-      </div>
-    </div>
-  </header>
+    </nav>
 
-  <section class="summary">
-    <h2>Profile Summary</h2>
-    <p>
-      A highly motivated and academically strong student with a CGPA of 8+ and a keen interest in programming. Passionate about problem-solving and hands-on learning through real-world projects.
-    </p>
-  </section>
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1>Software Developer</h1>
+                <p>A highly motivated and academically strong college student with a keen interest in programming. Passionate about learning, problem-solving, and exploring innovative solutions in IoT, cybersecurity, and blockchain technology.</p>
+                <div class="hero-buttons">
+                    <a href="#projects" class="btn btn-primary">View My Work</a>
+                    <a href="#contact" class="btn btn-secondary">Get In Touch</a>
+                </div>
+            </div>
+            <div class="hero-image">
+                <div class="profile-card">
+                    <div class="profile-img">👩‍💻</div>
+                    <div style="text-align: center;">
+                        <h3>Aluri Indu Priya</h3>
+                        <p>Ready to innovate and build the future</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-  <section class="education">
-    <h2>Education</h2>
-    <ul>
-      <li><strong>B-Tech, CSE (IoT, Cybersecurity incl. Blockchain)</strong><br/>VVIT, Nambur – 2022-2026 – <b>80.9%</b></li>
-      <li><strong>Intermediate - MPC</strong><br/>P.B.N College, Nidubrolu – 2020-2022 – <b>87.8%</b></li>
-      <li><strong>SSC - BSEAP</strong><br/>H.T High School – <b>97%</b></li>
-    </ul>
-  </section>
+    <!-- About Section -->
+    <section id="about" class="section">
+        <h2 class="section-title animate-on-scroll">About Me</h2>
+        <div class="about-content">
+            <div class="about-card animate-on-scroll">
+                <h3>Profile Summary</h3>
+                <p>A highly motivated and academically strong college student with a CGPA of 8+ and a keen interest in programming. Passionate about learning, problem-solving, and exploring innovative solutions. Eager to gain hands-on experience through real-world projects and continually enhance technical skills. Actively seeking opportunities to grow in the field of software development and contribute meaningfully to challenging projects.</p>
+                <div style="margin-top: 1.5rem;">
+                    <p><strong>📍 Location:</strong> Ponnur, Guntur, AP, 522124</p>
+                    <p><strong>📞 Phone:</strong> 9542836687</p>
+                    <p><strong>✉️ Email:</strong> alurindu123@gmail.com</p>
+                </div>
+            </div>
+            <div class="about-card animate-on-scroll">
+                <h3>Education</h3>
+                <div class="education-item">
+                    <div class="education-title">B-Tech, CSE (IoT, Cybersecurity including Blockchain Technology)</div>
+                    <div class="education-institution">Vasireddy Venkatardi Institute of Technology, Nambur</div>
+                    <div class="education-details">2022-2026 • 80.9%</div>
+                </div>
+                <div class="education-item">
+                    <div class="education-title">Intermediate – MPC</div>
+                    <div class="education-institution">P.B.N College, Nidubrolu</div>
+                    <div class="education-details">2020-2022 • 87.8%</div>
+                </div>
+                <div class="education-item">
+                    <div class="education-title">SSC BSEAP</div>
+                    <div class="education-institution">H.T High School</div>
+                    <div class="education-details">2020 • 97%</div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-  <section class="certifications">
-    <h2>Certifications</h2>
-    <ul>
-      <li>NPTEL Java (Elite)</li>
-      <li>CS50 SQL – Harvard University</li>
-      <li>Google Cloud Cybersecurity (Eduskills)</li>
-      <li>Smart India Hackathon – Participant</li>
-    </ul>
-  </section>
+    <!-- Skills Section -->
+    <section id="skills" class="section">
+        <h2 class="section-title animate-on-scroll">Skills & Technologies</h2>
+        <div class="skills-grid">
+            <div class="skill-category animate-on-scroll">
+                <h3>Programming Languages</h3>
+                <div class="skill-tags">
+                    <span class="skill-tag">Java</span>
+                    <span class="skill-tag">Python</span>
+                    <span class="skill-tag">C</span>
+                    <span class="skill-tag">HTML</span>
+                    <span class="skill-tag">React JS</span>
+                    <span class="skill-tag">CSS</span>
+                    <span class="skill-tag">JavaScript</span>
+                </div>
+            </div>
+            <div class="skill-category animate-on-scroll">
+                <h3>Data & Analytics</h3>
+                <div class="skill-tags">
+                    <span class="skill-tag">SQL</span>
+                    <span class="skill-tag">Microsoft Excel</span>
+                    <span class="skill-tag">Tableau</span>
+                </div>
+            </div>
+            <div class="skill-category animate-on-scroll">
+                <h3>Technologies</h3>
+                <div class="skill-tags">
+                    <span class="skill-tag">IoT</span>
+                    <span class="skill-tag">Blockchain</span>
+                    <span class="skill-tag">Web Development</span>
+                </div>
+            </div>
+            <div class="skill-category animate-on-scroll">
+                <h3>Tools & Frameworks</h3>
+                <div class="skill-tags">
+                    <span class="skill-tag">UIPath</span>
+                    <span class="skill-tag">Android Studio</span>
+                    <span class="skill-tag">ASP.NET Core</span>
+                    <span class="skill-tag">Entity Framework</span>
+                </div>
+            </div>
+        </div>
 
-  <section class="skills">
-    <h2>Technical Skills</h2>
-    <p><strong>Languages:</strong> Java, Python, C, HTML</p>
-    <p><strong>Web:</strong> ReactJS, CSS, JS</p>
-    <p><strong>DB:</strong> SQL</p>
-    <p><strong>Technologies:</strong> IoT, Blockchain, Web Dev</p>
-  </section>
+        <!-- Certifications -->
+        <div class="certifications animate-on-scroll">
+            <h3>🏆 Certifications</h3>
+            <div class="cert-list">
+                <div class="cert-item">Programming in Java – NPTEL (Elite)</div>
+                <div class="cert-item">CS50's Introduction to Databases with SQL – Harvard University</div>
+                <div class="cert-item">Google Cloud Cybersecurity Program – Eduskills (Palo Alto Networks)</div>
+                <div class="cert-item">Tools of the Trade: Linux and SQL - Coursera</div>
+                <div class="cert-item">UIPath Certified Professional Automation Developer Associate Certification</div>
+                <div class="cert-item">Automate Cybersecurity Tasks with Python - Coursera</div>
+                <div class="cert-item">Google Cloud ACE Certification - Google</div>
+            </div>
+        </div>
+    </section>
 
-  <section class="projects">
-    <h2>Projects</h2>
-    <div class="project">
-      <h3>IoT-Based Groundwater Quality Monitoring</h3>
-      <p>Smart sensors track pH and turbidity for sustainable water management.</p>
-    </div>
-    <div class="project">
-      <h3>Cybersuite Security Web App</h3>
-      <p>Detects threats and scans uploaded files with real-time malware analysis.</p>
-    </div>
-    <div class="project">
-      <h3>Blockchain-Based Crop Insurance (TalentFarm)</h3>
-      <p>Ensures tamper-proof claims and automated payouts via smart contracts.</p>
-    </div>
-  </section>
+    <!-- Experience Section -->
+    <section id="experience" class="section">
+        <h2 class="section-title animate-on-scroll">Experience & Internships</h2>
+        
+        <div class="experience-card animate-on-scroll">
+            <div class="experience-header">
+                <div>
+                    <div class="experience-title">Infosys Springboard Virtual Internship</div>
+                    <div class="experience-company">Pragathi</div>
+                </div>
+                <div class="experience-date">Ongoing</div>
+            </div>
+            <div class="experience-description">
+                <ul>
+                    <li>Completing required learning modules and projects on Infosys Springboard platform</li>
+                    <li>Focuses on hands-on learning, industry-relevant projects, and skill development</li>
+                </ul>
+            </div>
+        </div>
 
-  <section class="strengths">
-    <h2>Strengths</h2>
-    <ul>
-      <li>Teamwork</li>
-      <li>Communication</li>
-      <li>Time Management</li>
-      <li>Problem Solving</li>
-    </ul>
-  </section>
+        <div class="experience-card animate-on-scroll">
+            <div class="experience-header">
+                <div>
+                    <div class="experience-title">Palo Alto Cybersecurity Virtual Internship</div>
+                    <div class="experience-company">Eduskills</div>
+                </div>
+                <div class="experience-date">Completed</div>
+            </div>
+            <div class="experience-description">
+                <ul>
+                    <li>Participated in a cybersecurity internship by Palo Alto Networks and Eduskills</li>
+                    <li>Explored topics like network security, firewalls, threat prevention, and incident response</li>
+                </ul>
+            </div>
+        </div>
 
-  <footer>
-    <p>&copy; 2025 Aluri Indu Priya. All rights reserved.</p>
-  </footer>
+        <div class="experience-card animate-on-scroll">
+            <div class="experience-header">
+                <div>
+                    <div class="experience-title">Google Android Virtual Internship</div>
+                    <div class="experience-company">Eduskills</div>
+                </div>
+                <div class="experience-date">Completed</div>
+            </div>
+            <div class="experience-description">
+                <ul>
+                    <li>Completed a virtual internship by Google via Eduskills focused on Android app development</li>
+                    <li>Learned to build mobile apps using Java/Kotlin and Android Studio</li>
+                    <li>Gained practical experience through mini-projects and real-time scenarios</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="experience-card animate-on-scroll">
+            <div class="experience-header">
+                <div>
+                    <div class="experience-title">UIPath Certified Professional Automation Developer Virtual Internship</div>
+                    <div class="experience-company">Eduskills</div>
+                </div>
+                <div class="experience-date">Completed</div>
+            </div>
+            <div class="experience-description">
+                <ul>
+                    <li>Completed virtual internship on Robotic Process Automation (RPA) with UIPath through Eduskills</li>
+                    <li>Gained hands-on experience with UIPath Studio to build automation workflows</li>
+                    <li>Learned to automate repetitive business tasks using variables, loops, and selectors</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="section">
+        <h2 class="section-title animate-on-scroll">Featured Projects</h2>
+        <div class="projects-grid">
+            <div class="project-card animate-on-scroll">
+                <div class="project-header">💧</div>
+                <div class="project-content">
+                    <div class="project-title">IoT-Based Groundwater Quality Monitoring System</div>
+                    <div class="project-year">2023</div>
+                    <div class="project-description">
+                        The IoT-Based Groundwater Quality Monitoring System utilizes smart sensors to continuously track key water parameters such as pH and turbidity in real-time. It enables remote monitoring and early detection of contamination, ensuring safe and sustainable groundwater management.
+                    </div>
+                    <div class="project-tech">
+                        <span class="tech-tag">IoT</span>
+                        <span class="tech-tag">Sensors</span>
+                        <span class="tech-tag">Real-time Monitoring</span>
+                        <span class="tech-tag">Water Quality</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card animate-on-scroll">
+                <div class="project-header">🛡️</div>
+                <div class="project-content">
+                    <div class="project-title">CyberSuite Project</div>
+                    <div class="project-year">2024</div>
+                    <div class="project-description">
+                        Cybersuite is a Security Web Application designed to scan uploaded files and detect potential threats, ensuring user data safety and system integrity. It leverages advanced malware detection techniques to provide real-time analysis and secure file handling.
+                    </div>
+                    <div class="project-tech">
+                        <span class="tech-tag">Cybersecurity</span>
+                        <span class="tech-tag">Web Development</span>
+                        <span class="tech-tag">Malware Detection</span>
+                        <span class="tech-tag">File Security</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card animate-on-scroll">
+                <div class="project-header">🌾</div>
+                <div class="project-content">
+                    <div class="project-title">Streamlined Crop Insurance Project (TalentFarm)</div>
+                    <div class="project-year">2024</div>
+                    <div class="project-description">
+                        TalentFarm is a Blockchain-Based Crop Insurance Platform that ensures transparent, tamper-proof claim processing and rapid fund disbursement for farmers affected by natural adversities. It enhances trust and efficiency by automating policy verification and payouts through smart contracts.
+                    </div>
+                    <div class="project-tech">
+                        <span class="tech-tag">Blockchain</span>
+                        <span class="tech-tag">Smart Contracts</span>
+                        <span class="tech-tag">Insurance</span>
+                        <span class="tech-tag">Agriculture</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card animate-on-scroll">
+                <div class="project-header">👥</div>
+                <div class="project-content">
+                    <div class="project-title">.NET Employee Management System</div>
+                    <div class="project-year">2024</div>
+                    <div class="project-description">
+                        Developed a web-based employee management system using ASP.NET Core with Entity Framework Core and SQL Server. Implemented user authentication (Login/Register) using ASP.NET Identity with Windows Authentication for secure access. Key features include adding, updating, deleting employee records, and role-based access control for Admin, Manager, and Employee roles.
+                    </div>
+                    <div class="project-tech">
+                        <span class="tech-tag">ASP.NET Core</span>
+                        <span class="tech-tag">Entity Framework</span>
+                        <span class="tech-tag">SQL Server</span>
+                        <span class="tech-tag">Bootstrap</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="contact-content">
+            <h2 style="font-size: 2.5rem; margin-bottom: 1rem;">Let's Connect</h2>
+            <p style="font-size: 1.2rem; margin-bottom: 2rem;">
+                I'm always open to discussing new opportunities, collaborating on interesting projects, 
+                or just having a conversation about technology and innovation.
+            </p>
+            
+            <div class="contact-links">
+                <a href="mailto:alurindu123@gmail.com" class="contact-link">
+                    <span>📧</span>
+                    <span>Email Me</span>
+                </a>
+                <a href="https://www.linkedin.com/in/aluri-indu-priya-503a27269/" target="_blank" class="contact-link">
+                    <span>💼</span>
+                    <span>LinkedIn</span>
+                </a>
+                <a href="https://github.com/22bq1a4702" target="_blank" class="contact-link">
+                    <span>🐙</span>
+                    <span>GitHub</span>
+                </a>
+            </div>
+
+            <div class="hobbies">
+                <h3>When I'm Not Coding</h3>
+                <div class="hobby-tags">
+                    <div class="hobby-tag">
+                        <span>📚</span>
+                        <span>Learning new things</span>
+                    </div>
+                    <div class="hobby-tag">
+                        <span>🎵</span>
+                        <span>Listening to music</span>
+                    </div>
+                    <div class="hobby-tag">
+                        <span>🎤</span>
+                        <span>Singing</span>
+                    </div>
+                    <div class="hobby-tag">
+                        <span>📖</span>
+                        <span>Reading books</span>
+                    </div>
+                    <div class="hobby-tag">
+                        <span>🤝</span>
+                        <span>Volunteering (NSS )</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animated');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.animate-on-scroll').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
 </body>
 </html>
